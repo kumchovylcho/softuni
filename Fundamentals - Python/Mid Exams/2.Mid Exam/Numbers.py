@@ -14,7 +14,7 @@ numbers_higher_than_average_number.reverse()
 if sum(numbers_higher_than_average_number) == 0:
     print("No")
 
-elif len(numbers_higher_than_average_number) > 0:
+elif numbers_higher_than_average_number:
     print(*numbers_higher_than_average_number, sep=" ")
 
 
