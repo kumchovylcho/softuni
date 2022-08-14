@@ -18,7 +18,7 @@ def add_target(position, target_value):
 def strike(position, radius_of_strike):
     from_current_position_to_0 = position - radius_of_strike     # if the result is less than zero, strike will miss
     from_current_position_to_len_targets = position + radius_of_strike  # if the result is more than len(targets) , strike will miss
-    if 0 <= position < len(targets) and from_current_position_to_0 >= 0 and from_current_position_to_len_targets < len(targets):
+    if from_current_position_to_0 >= 0 and from_current_position_to_len_targets < len(targets):
         del targets[from_current_position_to_0:from_current_position_to_len_targets + 1]
     elif from_current_position_to_0 < 0 or from_current_position_to_len_targets >= len(targets):
         print("Strike missed!")
