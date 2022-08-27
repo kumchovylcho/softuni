@@ -1,18 +1,23 @@
-products_statistics = {}
-products = input()
-while products != "statistics":
-    products = products.split(": ")
-    key = products[0]
-    value = int(products[1])
-    if key not in products_statistics:
-        products_statistics[key] = 0
-    products_statistics[key] += value
-    products = input()
+products_in_stock = dict()
+
+fill_in_products = input()
+while fill_in_products != "statistics":
+    fill_in_products = fill_in_products.split(": ")
+    product = fill_in_products[0]
+    quantity = int(fill_in_products[1])
+
+    if product not in products_in_stock:
+        products_in_stock[product] = quantity
+
+    elif product in products_in_stock:
+        products_in_stock[product] += quantity
+
+    fill_in_products = input()
 
 print("Products in stock:")
 
-for (product, quantity) in products_statistics.items():
-    print(f"- {product}: {quantity}")
+for item in products_in_stock:
+    print(f"- {item}: {products_in_stock[item]}")
 
-print(f"Total Products: {len(products_statistics)}")
-print(f"Total Quantity: {sum(products_statistics.values())}")
+print(f"Total Products: {len(products_in_stock)}")
+print(f"Total Quantity: {sum(products_in_stock.values())}")
