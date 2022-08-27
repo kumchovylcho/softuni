@@ -1,9 +1,10 @@
-food_and_quantity = input().split()
-bakery = {}
+products = input().split()
+bakery = dict()
 
-for x in range(0, len(food_and_quantity), 2):
-    key = food_and_quantity[x]
-    value = food_and_quantity[x + 1]
-    bakery[key] = int(value)
+for item in range(0, len(products), 2):
+    product = products[item]
+    quantity = int(products[item + 1])
+    bakery[product] = quantity
 
 print(bakery)
+
