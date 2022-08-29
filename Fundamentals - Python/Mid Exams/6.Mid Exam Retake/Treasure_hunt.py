@@ -5,7 +5,7 @@ def loot(items):
     del items[0]    # deleting the command , so it doesn't loop it too
     for item in items:
         if item not in loot_in_chest:
-            loot_in_chest.insert(0, item)     # puts the item at zero current_index
+            loot_in_chest.insert(0, item)     # puts the current_shard at zero current_index
 
 
 def drop(index):
