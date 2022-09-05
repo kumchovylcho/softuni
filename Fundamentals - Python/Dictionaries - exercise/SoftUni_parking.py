@@ -32,7 +32,6 @@ def registration():
         registration = register[0]
         username = register[1]
 
-
         if registration == "register":
             license_plate = register[2]
             register_check(username, license_plate)
