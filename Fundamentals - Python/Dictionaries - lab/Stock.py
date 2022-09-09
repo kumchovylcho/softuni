@@ -12,4 +12,3 @@ for product in wanted_products:
         print(f"Sorry, we don't have {product}")
     elif product in stock_items:
         print(f"We have {stock_items[product]} of {product} left")
-

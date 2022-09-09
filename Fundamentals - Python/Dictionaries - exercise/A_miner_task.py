@@ -1,19 +1,29 @@
-mined_materials = dict()
-
+minerals = {}
 material = input()
 while material != "stop":
     quantity = int(input())
-
-    if material not in mined_materials:
-        mined_materials[material] = quantity
-
-    elif material in mined_materials:
-        mined_materials[material] += quantity
-
+    minerals[material] = minerals.get(material, 0) + quantity
     material = input()
 
-for key in mined_materials:
-    print(f"{key} -> {mined_materials[key]}")
+[print(f"{key} -> {value}") for key, value in minerals.items()]
+
+
+# mined_materials = dict()
+#
+# material = input()
+# while material != "stop":
+#     quantity = int(input())
+#
+#     if material not in mined_materials:
+#         mined_materials[material] = quantity
+#
+#     elif material in mined_materials:
+#         mined_materials[material] += quantity
+#
+#     material = input()
+#
+# for key in mined_materials:
+#     print(f"{key} -> {mined_materials[key]}")
 
 # miner_resources = dict()
 #
