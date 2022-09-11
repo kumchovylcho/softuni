@@ -43,3 +43,33 @@ def registration():
 
 
 registration()
+
+
+# parking_lot = {}
+#
+# number_of_commands = int(input())
+# for command in range(number_of_commands):
+#     customer_info = input().split()
+#
+#     register_unregister, username = customer_info[0], customer_info[1]
+#
+#     if register_unregister == "register":
+#         license_plate = customer_info[2]
+#
+#         if username not in parking_lot:
+#             parking_lot[username] = {'license plate': license_plate}
+#             print(f"{username} registered {license_plate} successfully")
+#
+#         elif username in parking_lot:
+#             print(f"ERROR: already registered with plate number {license_plate}")
+#
+#     elif register_unregister == "unregister":
+#         if username not in parking_lot:
+#             print(f"ERROR: user {username} not found")
+#
+#         elif username in parking_lot:
+#             print(f"{username} unregistered successfully")
+#             del parking_lot[username]
+#
+# for key, value in parking_lot.items():
+#     print(f"{key} => {parking_lot[key]['license plate']}")

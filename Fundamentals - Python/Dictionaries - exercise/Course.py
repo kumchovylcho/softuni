@@ -28,3 +28,21 @@ def print_result():
 
 
 main()
+
+
+# courses_info = {}
+#
+# courses = input()
+# while courses != "end":
+#     courses = courses.split(" : ")
+#     course_name, student_name = courses[0], courses[1]
+#
+#     courses_info[course_name] = courses_info.get(course_name,  {})
+#     courses_info[course_name][student_name] = student_name
+#
+#     courses = input()
+#
+# for key, value in courses_info.items():
+#     print(f"{key}: {len(courses_info[key])}")
+#     for name in courses_info[key]:
+#         print(f"-- {courses_info[key][name]}")
