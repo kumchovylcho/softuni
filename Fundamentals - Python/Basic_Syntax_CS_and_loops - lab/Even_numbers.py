@@ -6,3 +6,6 @@ for number in range(numbers):
         break
 else:
     print("All numbers are even.")
+
+# if the for loop breaks , then the else statement will NOT be executed
+# for loop must iterate until the very end without breaking and that's when else statement will be executed
