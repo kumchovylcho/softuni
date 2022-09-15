@@ -6,12 +6,13 @@ elif number > 0:
         print("small positive")
     elif number > 1000000:
         print("large positive")
-    else:
+    elif 1 <= number <= 1000000:
         print("positive")
-else:
-    if abs(number) < 1:
+elif number < 0:
+    number = abs(number)
+    if number < 1:
         print("small negative")
-    elif abs(number) > 1000000:
+    elif number > 1000000:
         print("large negative")
-    else:
+    elif 1 <= number <= 1000000:
         print("negative")
