@@ -1,13 +1,20 @@
-first_text = input()
-second_text = input()
-list_one = list(first_text)
-list_two = list(second_text)
-i = 0
-target_list = list(first_text)
-for letter_a, letter_b in zip(list_one, list_two):
-    if letter_a != letter_b:
-        target_list[i] = letter_b
-        for _ in target_list:
-            print(f"{_}", end="")
-        print()
-    i += 1
+first_word, second_word = list(input()), list(input())
+for index in range(len(first_word)):
+    if first_word[index] != second_word[index]:
+        first_word[index] = second_word[index]
+        print(*first_word, sep='')
+
+
+# first_text = input()
+# second_text = input()
+# list_one = list(first_text)
+# list_two = list(second_text)
+# i = 0
+# target_list = list(first_text)
+# for letter_a, letter_b in zip(list_one, list_two):
+#     if letter_a != letter_b:
+#         target_list[i] = letter_b
+#         for _ in target_list:
+#             print(f"{_}", end="")
+#         print()
+#     i += 1
