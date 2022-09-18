@@ -1,0 +1,1 @@
+[print(f"{float(input()) * 1.60934:.2f}") for _ in range(1)]
