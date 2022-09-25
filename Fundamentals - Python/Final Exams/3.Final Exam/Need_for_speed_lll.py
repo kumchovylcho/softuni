@@ -45,5 +45,5 @@ while command != "Stop":
     command = input()
 
 for remaining_cars in cars_information:
-    print(f"{remaining_cars} -> Mileage: {cars_information[remaining_cars]['mileage']} kms, Fuel in the tank: "
-          f"{cars_information[remaining_cars]['fuel']} lt.")
+    print(f"{remaining_cars} -> Mileage: {cars_information[remaining_cars]['mileage']} kms, "
+          f"Fuel in the tank: {cars_information[remaining_cars]['fuel']} lt.")
