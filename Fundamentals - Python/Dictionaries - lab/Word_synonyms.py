@@ -18,7 +18,7 @@ for item in range(count_of_synonyms):
 #     synonym = input()
 #
 #     # if word not in synonyms:
-#     #     synonyms[word] = list()
+#     #     synonyms[word] = shuffled_cards()
 #     #
 #     # synonyms[word].append(synonym)
 #

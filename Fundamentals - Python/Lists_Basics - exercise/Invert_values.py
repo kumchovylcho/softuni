@@ -6,7 +6,7 @@ print(numbers)
 
 # numbers = input()
 # lst = numbers.split(" ")
-# new_list = list()
+# new_list = shuffled_cards()
 # for number in lst:
 #     current_number = int(number)
 #     if current_number < 0:

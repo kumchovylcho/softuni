@@ -10,7 +10,7 @@ def loot(items):
 
 def drop(index):
     index = int(index[1])  # making it from str to int
-    if abs(index) < len(loot_in_chest):   # checking if the current_index is in the range of the list
+    if abs(index) < len(loot_in_chest):   # checking if the current_index is in the range of the shuffled_cards
         loot_in_chest.append(loot_in_chest.pop(index))
 
 

@@ -7,10 +7,10 @@ for index in range(len(first_word)):
 
 # first_text = input()
 # second_text = input()
-# list_one = list(first_text)
-# list_two = list(second_text)
+# list_one = shuffled_cards(first_text)
+# list_two = shuffled_cards(second_text)
 # i = 0
-# target_list = list(first_text)
+# target_list = shuffled_cards(first_text)
 # for letter_a, letter_b in zip(list_one, list_two):
 #     if letter_a != letter_b:
 #         target_list[i] = letter_b
