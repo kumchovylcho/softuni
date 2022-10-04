@@ -30,7 +30,7 @@ for hearts in neighborhood:
     if hearts != 0:
         cupid_fails += 1
 
-if cupid_fails == 0:
+if not cupid_fails:
     print("Mission was successful.")
-elif cupid_fails > 0:
+elif cupid_fails:
     print(f"Cupid has failed {cupid_fails} places.")
