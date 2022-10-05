@@ -1,4 +1,4 @@
-lessons = input().split(", ")            # 88/100
+lessons = input().split(", ")
 
 
 def add(lesson_tittle):
@@ -15,8 +15,7 @@ def remove(lesson_tittle):
     if lesson_tittle in lessons:
         lessons.remove(lesson_tittle)
     if f"{lesson_tittle}-Exercise" in lessons:
-        if lessons.index(lesson_tittle) > lessons.index(f"{lesson_tittle}-Exercise"):
-            lessons.remove(f"{lesson_tittle}-Exercise")
+        lessons.remove(f"{lesson_tittle}-Exercise")
 
 
 def swap(lesson_1, lesson_2):
@@ -27,13 +26,18 @@ def swap(lesson_1, lesson_2):
         if lesson_2 and f"{lesson_2}-Exercise" in lessons:
             index_of_lesson_2 = lessons.index(lesson_2) + 1
             lessons.insert(index_of_lesson_2, f"{lesson_2}-Exercise")
-            del lessons[-1]
+            lessons.pop(lessons.index(f"{lesson_2}-Exercise", lessons.index(f"{lesson_2}-Exercise") + 1))
+        if lesson_1 and f"{lesson_1}-Exercise" in lessons:
+            index_of_lesson_1 = lessons.index(lesson_1) + 1
+            lessons.insert(index_of_lesson_1, f"{lesson_1}-Exercise")
+            lessons.pop(lessons.index(f"{lesson_1}-Exercise", lessons.index(f"{lesson_1}-Exercise") + 1))
 
 
 def exercise(lesson_title):
-    if lesson_title in lessons and "Exercise" not in lessons:
-        current_lesson_index = lessons.index(lesson_title) + 1
-        lessons.insert(current_lesson_index, f"{lesson_title}-Exercise")
+    if lesson_title in lessons:
+        if f"{lesson_title}-Exercise" not in lessons:
+            current_lesson_index = lessons.index(lesson_title) + 1
+            lessons.insert(current_lesson_index, f"{lesson_title}-Exercise")
     elif lesson_title not in lessons:
         lessons.append(lesson_title)
         lessons.append(f"{lesson_title}-Exercise")
