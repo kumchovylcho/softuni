@@ -8,3 +8,8 @@ def area(side_a, side_b):
 
 
 print(area(width, height))
+
+
+# width, height = int(input()), int(input())
+# area_calculation = lambda side_a, side_b: side_a * side_b
+# print(area_calculation(width, height))

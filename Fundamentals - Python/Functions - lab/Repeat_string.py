@@ -11,8 +11,10 @@ print(new_text(text, times_to_copy))
 
 
 
-
-
-# repeat_string = lambda a, b: a * b
-# result = repeat_string(text, times_to_copy)
+# text, repeats = input(), int(input())
+# repeat_string = lambda string, repeats: string * repeats
+# result = repeat_string(text, repeats)
 # print(result)
+
+
+# print(input() * int(input()))
