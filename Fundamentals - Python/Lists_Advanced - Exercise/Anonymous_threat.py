@@ -1,70 +1,43 @@
-from math import floor
-words = input().split()             # NEED TO FIX THE DIVISION , THIS SOLUTION GETS 90/100
+words = input().split()
 
 
-def merge(current_command, words):
-    starting_index = int(current_command[1])
-    ending_index = int(current_command[2])
+def merge(start_index, end_index, words):
     current_merge = []
     all_in_one_string = ""
-    if starting_index < 0:
-        starting_index = 0
-    elif starting_index > len(words):
-        starting_index = len(words) - 2
-    if ending_index > len(words):
-        ending_index = len(words)
-    current_merge += words[starting_index:ending_index + 1]
+    if start_index < 0:
+        start_index = 0
+    elif start_index > len(words):
+        start_index = len(words) - 2
+    if end_index > len(words):
+        end_index = len(words) - 1
+    current_merge += words[start_index:end_index + 1]
     for word in current_merge:
         all_in_one_string += word
-    del words[starting_index:ending_index + 1]
-    words.insert(starting_index, all_in_one_string)
+    del words[start_index:end_index + 1]
+    words.insert(start_index, all_in_one_string)
 
 
-def divide(current_command, words):
-    word_position = int(current_command[1])
-    divide_into_pieces = int(current_command[2])
-    if len(words[word_position]) < divide_into_pieces:
-        divide_into_pieces = int(len(words[word_position]))
-    elif divide_into_pieces == 0:
-        divide_into_pieces = 1
-    if len(words[word_position]) % divide_into_pieces == 0:
-        how_many_substrings = int(len(words[word_position]) / divide_into_pieces)
-        new_string = ""
-        counter = 0
-        for letter in words[word_position]:
-            if counter == how_many_substrings:
-                new_string += " "
-                counter = 0
-            new_string += letter
-            counter += 1
-        del words[word_position]
-        words.insert(word_position, new_string)
-    elif len(words[word_position]) % divide_into_pieces != 0:
-        how_many_substrings = floor((len(words[word_position]) / divide_into_pieces))
-        new_string = ""
-        counter = 0
-        counter_of_substrings = 0
-        for letter in words[word_position]:
-            if counter == how_many_substrings:
-                new_string += " "
-                counter = 0
-                counter_of_substrings += 1
-                if counter_of_substrings == divide_into_pieces - 1:
-                    break
-            new_string += letter
-            counter += 1
-        rest_of_the_word = len(new_string) - counter_of_substrings
-        new_string += words[word_position][rest_of_the_word:]
-        del words[word_position]
-        words.insert(word_position, new_string)
+def divide(divide_index, how_many_pieces, words):
+    how_long = len(words[divide_index])
+    space_between = how_long // how_many_pieces
+    string_to_change = words.pop(divide_index)
+    result_ = []
+    for x in range(how_many_pieces - 1):
+        result_.append(string_to_change[:space_between])
+        string_to_change = string_to_change[space_between:]
+    result_.append(string_to_change)
+    for x in result_[::-1]:
+        words.insert(divide_index, x)
 
 
 command = input()
 while command != "3:1":
-    if "merge" in command:
-        merge(command.split(), words)
-    elif "divide" in command:
-        divide(command.split(), words)
+    command = command.split()
+    operation = command[0]
+    if operation == "merge":
+        merge(int(command[1]), int(command[2]), words)
+    elif operation == "divide":
+        divide(int(command[1]), int(command[2]), words)
     command = input()
 
 print(*words)
