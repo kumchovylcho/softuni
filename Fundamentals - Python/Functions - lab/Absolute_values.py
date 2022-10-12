@@ -6,6 +6,6 @@ for number in numbers:
 print(absolute_value)
 
 
-# numbers = [abs(float(number)) for number in input().split()]
-# print(numbers)
+# all_numbers = [abs(float(number)) for number in input().split()]
+# print(all_numbers)
 

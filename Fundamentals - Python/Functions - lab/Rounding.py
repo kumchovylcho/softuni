@@ -9,7 +9,7 @@ def round_numbers(numbers):
 print(round_numbers(main_list))
 
 
-# numbers = input().split()
+# all_numbers = input().split()
 # new_numbers = []
 #
 #
@@ -19,11 +19,11 @@ print(round_numbers(main_list))
 #     new_numbers.append(result)
 #
 #
-# for number in numbers:
+# for number in all_numbers:
 #     rounding_the_number(number)
 # print(new_numbers)
 
 
-# numbers = [round(float(number)) for number in input().split()]
-# print(numbers)
+# all_numbers = [round(float(number)) for number in input().split()]
+# print(all_numbers)
 

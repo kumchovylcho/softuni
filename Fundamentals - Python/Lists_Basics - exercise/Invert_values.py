@@ -1,11 +1,11 @@
 numbers = [int(number) for number in input().split()]
 inverted_values = [abs(number) if number < 0 else -abs(number) for number in numbers]
-# inverted_values = [number * -1 for number in numbers]  # if the number is negative, the minuses fall
+# inverted_values = [number * -1 for number in all_numbers]  # if the number is negative, the minuses fall
 print(numbers)
 
 
-# numbers = input()
-# lst = numbers.split(" ")
+# all_numbers = input()
+# lst = all_numbers.split(" ")
 # new_list = shuffled_cards()
 # for number in lst:
 #     current_number = int(number)

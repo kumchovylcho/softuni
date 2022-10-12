@@ -1,11 +1,9 @@
-numbers = [int(num) for num in input().split()]
-
-
 def min_max_and_sum(number):
-    min_number = f"The minimum number is {min(number)}"
-    max_number = f"The maximum number is {max(number)}"
-    sum_numbers = f"The sum number is: {sum(number)}"
-    return f"{min_number}\n{max_number}\n{sum_numbers}"
+    return min(number), max(number), sum(numbers)
 
 
-print(min_max_and_sum(numbers))
+numbers = [int(num) for num in input().split()]
+min_of_numbers, max_of_numbers, sum_of_numbers = min_max_and_sum(numbers)
+print(f"The minimum number is {min_of_numbers}")
+print(f"The maximum number is {max_of_numbers}")
+print(f"The sum number is: {sum_of_numbers}")

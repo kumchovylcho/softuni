@@ -16,11 +16,11 @@ elif numbers_higher_than_average_number:
 
 
 
-# numbers = [int(number) for number in input().split()]
-# average_number = sum(numbers) / len(numbers)
+# all_numbers = [int(number) for number in input().split()]
+# average_number = sum(all_numbers) / len(all_numbers)
 #
 # numbers_higher_than_average_number = []
-# [numbers_higher_than_average_number.append(number) for number in numbers if number > average_number]
+# [numbers_higher_than_average_number.append(number) for number in all_numbers if number > average_number]
 #
 # numbers_higher_than_average_number.sort()
 #
