@@ -10,7 +10,7 @@ def palindrome_checker(all_numbers):
     # return result
 
 
-numbers = [number for number in input().split(", ")]
+numbers = input().split(", ")
 final_result = palindrome_checker(numbers)
 for boolean in final_result:
     print(boolean)
