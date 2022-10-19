@@ -1,6 +1,3 @@
-numbers = [int(x) for x in input().split()]
-
-
 def shoot_target(current_index):
     if 0 <= current_index < len(numbers):
         shot_value = numbers[current_index]
@@ -14,6 +11,7 @@ def shoot_target(current_index):
                 numbers[count] += shot_value
 
 
+numbers = [int(x) for x in input().split()]
 index = input()
 while index != "End":
     index = int(index)

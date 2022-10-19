@@ -1,6 +1,3 @@
-items = input().split(", ")
-
-
 def collect(item):
     if item not in items:
         items.append(item)
@@ -23,6 +20,7 @@ def renew(item):
         items.append(item)
 
 
+items = input().split(", ")
 command = input()
 while command != "Craft!":
     command = command.split(" - ")

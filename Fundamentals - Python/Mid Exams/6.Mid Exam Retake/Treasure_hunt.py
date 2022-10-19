@@ -1,6 +1,3 @@
-loot_in_chest = input().split("|")
-
-
 def loot(items):
     del items[0]    # deleting the command , so it doesn't loop it too
     for item in items:
@@ -22,6 +19,7 @@ def steal(number_of_times):
     print(*stolen_items, sep=", ")
 
 
+loot_in_chest = input().split("|")
 command = input()
 while command != "Yohoho!":
     if "Loot" in command:

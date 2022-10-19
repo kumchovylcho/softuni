@@ -1,6 +1,3 @@
-products = input().split("!")
-
-
 def urgent(item):
     if item not in products:
         products.insert(0, item)
@@ -24,6 +21,7 @@ def rearrange(item):
         products.insert(len(products), item)
 
 
+products = input().split("!")
 command = input()
 while command != "Go Shopping!":
     command = command.split()

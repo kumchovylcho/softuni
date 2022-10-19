@@ -1,6 +1,3 @@
-targets = [int(target) for target in input().split()]
-
-
 def shooting(position, strike_damage):
     if 0 <= position < len(targets):
         targets[position] -= strike_damage
@@ -24,6 +21,7 @@ def strike(position, radius_of_strike):
         print("Strike missed!")
 
 
+targets = [int(target) for target in input().split()]
 command = input()
 while command != "End":
     command = command.split()

@@ -1,7 +1,3 @@
-neighborhood = [int(num) for num in input().split("@")]
-last_house = 0
-
-
 def jump_on_houses(current_jump, last_house_jumped):
     last_house_jumped += current_jump
     if last_house_jumped >= len(neighborhood):
@@ -16,6 +12,8 @@ def jump_on_houses(current_jump, last_house_jumped):
     return last_house_jumped
 
 
+neighborhood = [int(num) for num in input().split("@")]
+last_house = 0
 jump = input()
 while jump != "Love!":
     jump = jump.split()

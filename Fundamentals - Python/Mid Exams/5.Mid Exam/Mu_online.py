@@ -1,8 +1,3 @@
-dungeon_rooms = input().split("|")
-hp = 100
-bitcoins = 0
-
-
 def monster(monster, damage_received, hp, count_room):
     hp -= damage_received
     if hp <= 0:
@@ -29,6 +24,9 @@ def chest(coins):
     return coins
 
 
+dungeon_rooms = input().split("|")
+hp = 100
+bitcoins = 0
 for count, room in enumerate(dungeon_rooms, 1):
     room = room.split()
     event = room[0]

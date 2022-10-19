@@ -1,32 +1,26 @@
+def swap(index_1, index_2, current_list):
+    current_list[index_1], current_list[index_2] = current_list[index_2], current_list[index_1]
+    return current_list
+
+
+def multiply(index_1, index_2, current_list):
+    current_list[index_1] = current_list[index_1] * current_list[index_2]
+    return current_list
+
+
+def decrease(current_list):
+    current_list = [number - 1 for number in current_list]
+    return current_list
+
+
 numbers = [int(number) for number in input().split()]
-
-
-def swap(index_1, index_2):
-    numbers[index_1], numbers[index_2] = numbers[index_2], numbers[index_1]
-
-
-def multiply(index_1, index_2):
-    numbers[index_1] = numbers[index_1] * numbers[index_2]
-
-
-def decrease(lst):
-    lst = [number - 1 for number in numbers]
-    return lst
-
-
 command = input()
 while command != "end":
-    command = command.split()
-    operation = command[0]
+    operation, *indexes = [item if item.isalpha() else int(item) for item in command.split()]
     if operation == "swap":
-        index_1 = int(command[1])
-        index_2 = int(command[2])
-        swap(index_1, index_2)
+        numbers = swap(indexes[0], indexes[1], numbers)
     elif operation == "multiply":
-        index_1 = int(command[1])
-        index_2 = int(command[2])
-        multiply(index_1, index_2)
-
+        numbers = multiply(indexes[0], indexes[1], numbers)
     elif operation == "decrease":
         numbers = decrease(numbers)
     command = input()

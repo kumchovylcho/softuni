@@ -1,9 +1,3 @@
-status_of_pirate_ships = [int(ship) for ship in input().split(">")]
-status_of_warships = [int(ship) for ship in input().split(">")]
-max_pirate_ship_HP = int(input())
-is_sunken = False
-
-
 def attack_warship(warship_position, damage_dealt):
     global is_sunken
     if 0 <= warship_position < len(status_of_warships):
@@ -38,6 +32,10 @@ def status_checker():
     print(f"{len(ships_to_repair)} sections need repair.")
 
 
+status_of_pirate_ships = [int(ship) for ship in input().split(">")]
+status_of_warships = [int(ship) for ship in input().split(">")]
+max_pirate_ship_HP = int(input())
+is_sunken = False
 command = input()
 while command != "Retire":
     command = command.split()
