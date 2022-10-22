@@ -1,17 +1,14 @@
-def swap(current_numbers, indexes):
-    index_one, index_two = indexes[0], indexes[1]
+def swap(current_numbers, index_one, index_two):
     current_numbers[index_one], current_numbers[index_two] = current_numbers[index_two], current_numbers[index_one]
     return current_numbers
 
 
-def multiply(current_numbers, indexes):
-    index_one, index_two = indexes[0], indexes[1]
+def multiply(current_numbers, index_one, index_two):
     current_numbers[index_one] = current_numbers[index_one] * current_numbers[index_two]
     return current_numbers
 
 
-def decrease(current_numbers, indexes):
-    # indexes parament is empty, but needs to be included in the function because of line 28
+def decrease(current_numbers):
     current_numbers = [item - 1 for item in current_numbers]
     return current_numbers
 
@@ -25,7 +22,7 @@ list_modifier = {
 command = input()
 while command != "end":
     operation, *data = [item if item.isalpha() else int(item) for item in command.split()]
-    list_with_numbers = list_modifier[operation](list_with_numbers, data)
+    list_with_numbers = list_modifier[operation](list_with_numbers, *data)
     command = input()
 print(', '.join(str(item) for item in list_with_numbers))
 
