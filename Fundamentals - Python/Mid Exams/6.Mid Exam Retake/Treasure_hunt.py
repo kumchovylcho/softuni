@@ -36,6 +36,45 @@ else:
 
 
 
+# def loot_chest(current_chest, items_to_loot):
+#     for item in items_to_loot:
+#         if item not in current_chest:
+#             current_chest.insert(0, item)
+#     return current_chest
+#
+#
+# def swap_item_position(current_chest, index_of_item):
+#     if 0 <= index_of_item < len(current_chest):
+#         current_chest.append(current_chest.pop(index_of_item))
+#     return current_chest
+#
+#
+# def steal_items(current_chest, count_of_stolen_items):
+#     stolen_items = current_chest[-count_of_stolen_items:]
+#     current_chest = current_chest[:-count_of_stolen_items]
+#     print(', '.join(stolen_items))
+#     return current_chest
+#
+#
+# treasure_chest = input().split("|")
+# command = input()
+# while command != "Yohoho!":
+#     operation, *data = [item if item.isalpha() else int(item) for item in command.split()]
+#     if operation == "Loot":
+#         treasure_chest = loot_chest(treasure_chest, data)
+#     elif operation == "Drop":
+#         treasure_chest = swap_item_position(treasure_chest, data[0])
+#     elif operation == "Steal":
+#         treasure_chest = steal_items(treasure_chest, data[0])
+#     command = input()
+# if treasure_chest:
+#     average_treasure_gained = sum([len(item) for item in treasure_chest]) / len(treasure_chest)
+#     print(f"Average treasure gain: {average_treasure_gained:.2f} pirate credits.")
+# else:
+#     print("Failed treasure hunt.")
+
+
+
 # def loot(items):
 #     del items[0]    # deleting the command , so it doesn't loop it too
 #     for item in items:
