@@ -1,19 +1,21 @@
-def loot_chest(*items_to_loot):
+def loot_chest(current_treasure_chest, *items_to_loot):
     for item in items_to_loot:
-        if item not in treasure_chest:
-            treasure_chest.insert(0, item)
+        if item not in current_treasure_chest:
+            current_treasure_chest.insert(0, item)
+    return current_treasure_chest
 
 
-def swap_item_position(index_of_item):
-    if 0 <= index_of_item < len(treasure_chest):
-        treasure_chest.append(treasure_chest.pop(index_of_item))
+def swap_item_position(current_treasure_chest, index_of_item):
+    if 0 <= index_of_item < len(current_treasure_chest):
+        current_treasure_chest.append(current_treasure_chest.pop(index_of_item))
+    return current_treasure_chest
 
 
-def steal_items(count_of_stolen_items):
-    global treasure_chest
-    stolen_items = treasure_chest[-count_of_stolen_items:]
-    treasure_chest = treasure_chest[:-count_of_stolen_items]
+def steal_items(current_treasure_chest, count_of_stolen_items):
+    stolen_items = current_treasure_chest[-count_of_stolen_items:]
+    current_treasure_chest = current_treasure_chest[:-count_of_stolen_items]
     print(', '.join(stolen_items))
+    return current_treasure_chest
 
 
 dict_operations = {
@@ -26,7 +28,7 @@ command = input()
 while command != "Yohoho!":
     operation, *data = [item if item.isalpha() else int(item) for item in command.split()]
     if operation in dict_operations:
-        dict_operations[operation](*data)
+        treasure_chest = dict_operations[operation](treasure_chest, *data)
     command = input()
 if treasure_chest:
     average_treasure_gained = sum([len(item) for item in treasure_chest]) / len(treasure_chest)
