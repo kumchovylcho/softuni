@@ -1,65 +1,122 @@
-def fire(war_ship_sections, target_section, dmg_output, is_sunken):
-    if 0 <= target_section < len(war_ship_sections):
-        war_ship_sections[target_section] -= dmg_output
-        if war_ship_sections[target_section] <= 0:
+def fire(_, current_warship_state, index, damage_output):
+    global is_sunken
+    if 0 <= index < len(current_warship_state):
+        current_warship_state[index] -= damage_output
+        if current_warship_state[index] <= 0:
             is_sunken = True
             print("You won! The enemy ship has sunken.")
-    return war_ship_sections, is_sunken
 
 
-def defend(pirate_ship_sections, start_index, end_index, dmg_received, is_sunken):
-    if 0 <= start_index < len(pirate_ship_sections) and 0 <= end_index < len(pirate_ship_sections):
+def defend(pirate_ship_state, _, start_index, end_index, damage_received):
+    global is_sunken
+    if 0 <= start_index < len(pirate_ship_state) and 0 <= end_index < len(pirate_ship_state):
         for ship in range(start_index, end_index + 1):
-            pirate_ship_sections[ship] -= dmg_received
-            if pirate_ship_sections[ship] <= 0:
+            pirate_ship_state[ship] -= damage_received
+            if pirate_ship_state[ship] <= 0:
                 is_sunken = True
                 print("You lost! The pirate ship has sunken.")
                 break
-    return pirate_ship_sections, is_sunken
 
 
-def repair(pirate_ship_sections, target_section, health, max_hp):
-    if 0 <= target_section < len(pirate_ship_sections):
-        if pirate_ship_sections[target_section] + health > max_hp:
-            pirate_ship_sections[target_section] = max_hp
-        else:
-            pirate_ship_sections[target_section] += health
-    return pirate_ship_sections
+def repair(state_of_pirate_ship, _, index, health):
+    global max_health_capacity
+    if 0 <= index < len(state_of_pirate_ship):
+        state_of_pirate_ship[index] += health
+        if state_of_pirate_ship[index] > max_health_capacity:
+            state_of_pirate_ship[index] = max_health_capacity
 
 
-def status(pirate_ship_sections, max_hp):
-    min_section_health = max_hp * 0.2
-    sections_to_repair = [ship for ship in pirate_ship_sections if ship < min_section_health]
-    print(f"{len(sections_to_repair)} sections need repair.")
-    return pirate_ship_sections
+def status(state_of_pirate_ship, _):
+    global max_health_capacity
+    low_hp_border = max_health_capacity * 0.2
+    count_of_repaired_ships = [ship for ship in state_of_pirate_ship if ship < low_hp_border]
+    print(f"{len(count_of_repaired_ships)} sections need repair.")
 
 
-pirate_ship = list(map(int, input().split(">")))
-war_ship = list(map(int, input().split(">")))
-
-max_health = int(input())
-
-commands = input()
-
-sink = False
-while commands != "Retire":
-    action, *data = [item if item.isalpha() else int(item) for item in commands.split()]
-
-    if action == "Fire":
-        war_ship, sink = fire(war_ship, data[0], data[1], sink)
-    elif action == "Defend":
-        pirate_ship, sink = defend(pirate_ship, data[0], data[1], data[2], sink)
-    elif action == "Repair":
-        pirate_ship = repair(pirate_ship, data[0], data[1], max_health)
-    elif action == "Status":
-        pirate_ship = status(pirate_ship, max_health)
-    if sink:
+pirate_ship = [int(item) for item in input().split(">")]
+war_ship = [int(item) for item in input().split(">")]
+max_health_capacity = int(input())
+commands = {
+    'Fire': fire,
+    'Defend': defend,
+    'Repair': repair,
+    'Status': status
+}
+is_sunken = False
+command = input()
+while command != "Retire":
+    operation, *data = [item if item.isalpha() else int(item) for item in command.split()]
+    commands[operation](pirate_ship, war_ship, *data)
+    if is_sunken:
         break
-
-    commands = input()
-if not sink:
+    command = input()
+if not is_sunken:
     print(f"Pirate ship status: {sum(pirate_ship)}")
     print(f"Warship status: {sum(war_ship)}")
+
+
+# def fire(war_ship_sections, target_section, dmg_output, is_sunken):
+#     if 0 <= target_section < len(war_ship_sections):
+#         war_ship_sections[target_section] -= dmg_output
+#         if war_ship_sections[target_section] <= 0:
+#             is_sunken = True
+#             print("You won! The enemy ship has sunken.")
+#     return war_ship_sections, is_sunken
+#
+#
+# def defend(pirate_ship_sections, start_index, end_index, dmg_received, is_sunken):
+#     if 0 <= start_index < len(pirate_ship_sections) and 0 <= end_index < len(pirate_ship_sections):
+#         for ship in range(start_index, end_index + 1):
+#             pirate_ship_sections[ship] -= dmg_received
+#             if pirate_ship_sections[ship] <= 0:
+#                 is_sunken = True
+#                 print("You lost! The pirate ship has sunken.")
+#                 break
+#     return pirate_ship_sections, is_sunken
+#
+#
+# def repair(pirate_ship_sections, target_section, health, max_hp):
+#     if 0 <= target_section < len(pirate_ship_sections):
+#         if pirate_ship_sections[target_section] + health > max_hp:
+#             pirate_ship_sections[target_section] = max_hp
+#         else:
+#             pirate_ship_sections[target_section] += health
+#     return pirate_ship_sections
+#
+#
+# def status(pirate_ship_sections, max_hp):
+#     min_section_health = max_hp * 0.2
+#     sections_to_repair = [ship for ship in pirate_ship_sections if ship < min_section_health]
+#     print(f"{len(sections_to_repair)} sections need repair.")
+#     return pirate_ship_sections
+#
+#
+# pirate_ship = list(map(int, input().split(">")))
+# war_ship = list(map(int, input().split(">")))
+#
+# max_health = int(input())
+#
+# commands = input()
+#
+# sink = False
+# while commands != "Retire":
+#     action, *data = [item if item.isalpha() else int(item) for item in commands.split()]
+#
+#     if action == "Fire":
+#         war_ship, sink = fire(war_ship, data[0], data[1], sink)
+#     elif action == "Defend":
+#         pirate_ship, sink = defend(pirate_ship, data[0], data[1], data[2], sink)
+#     elif action == "Repair":
+#         pirate_ship = repair(pirate_ship, data[0], data[1], max_health)
+#     elif action == "Status":
+#         pirate_ship = status(pirate_ship, max_health)
+#     if sink:
+#         break
+#
+#     commands = input()
+# if not sink:
+#     print(f"Pirate ship status: {sum(pirate_ship)}")
+#     print(f"Warship status: {sum(war_ship)}")
 
 
 # def attack_warship(warship_position, damage_dealt):
