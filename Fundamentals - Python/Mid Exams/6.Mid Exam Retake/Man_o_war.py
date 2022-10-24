@@ -2,7 +2,7 @@ def fire(index, damage_output):
     if 0 <= index < len(war_ship):
         war_ship[index] -= damage_output
         if war_ship[index] <= 0:
-            commands['sunken'] = True
+            ship_operations['sunken'] = True
             print("You won! The enemy ship has sunken.")
 
 
@@ -11,7 +11,7 @@ def defend(start_index, end_index, damage_received):
         for ship in range(start_index, end_index + 1):
             pirate_ship[ship] -= damage_received
             if pirate_ship[ship] <= 0:
-                commands['sunken'] = True
+                ship_operations['sunken'] = True
                 print("You lost! The pirate ship has sunken.")
                 break
 
@@ -24,7 +24,7 @@ def repair(index, health):
 
 
 def status():
-    low_hp_border = commands['max_health'] * 0.2
+    low_hp_border = ship_operations['max_health'] * 0.2
     count_of_repaired_ships = [ship for ship in pirate_ship if ship < low_hp_border]
     print(f"{len(count_of_repaired_ships)} sections need repair.")
 
@@ -32,7 +32,7 @@ def status():
 pirate_ship = [int(item) for item in input().split(">")]
 war_ship = [int(item) for item in input().split(">")]
 max_health_capacity = int(input())
-commands = {
+ship_operations = {
     'Fire': fire,
     'Defend': defend,
     'Repair': repair,
@@ -43,11 +43,11 @@ commands = {
 command = input()
 while command != "Retire":
     operation, *data = [item if item.isalpha() else int(item) for item in command.split()]
-    commands[operation](*data)
-    if commands['sunken']:
+    ship_operations[operation](*data)
+    if ship_operations['sunken']:
         break
     command = input()
-if not commands['sunken']:
+if not ship_operations['sunken']:
     print(f"Pirate ship status: {sum(pirate_ship)}")
     print(f"Warship status: {sum(war_ship)}")
 
@@ -93,11 +93,11 @@ if not commands['sunken']:
 #
 # max_health = int(input())
 #
-# commands = input()
+# ship_operations = input()
 #
 # sink = False
-# while commands != "Retire":
-#     action, *data = [item if item.isalpha() else int(item) for item in commands.split()]
+# while ship_operations != "Retire":
+#     action, *data = [item if item.isalpha() else int(item) for item in ship_operations.split()]
 #
 #     if action == "Fire":
 #         war_ship, sink = fire(war_ship, data[0], data[1], sink)
@@ -110,7 +110,7 @@ if not commands['sunken']:
 #     if sink:
 #         break
 #
-#     commands = input()
+#     ship_operations = input()
 # if not sink:
 #     print(f"Pirate ship status: {sum(pirate_ship)}")
 #     print(f"Warship status: {sum(war_ship)}")
