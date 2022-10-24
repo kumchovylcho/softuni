@@ -1,35 +1,31 @@
-def fire(_, current_warship_state, index, damage_output):
-    global is_sunken
-    if 0 <= index < len(current_warship_state):
-        current_warship_state[index] -= damage_output
-        if current_warship_state[index] <= 0:
-            is_sunken = True
+def fire(index, damage_output):
+    if 0 <= index < len(war_ship):
+        war_ship[index] -= damage_output
+        if war_ship[index] <= 0:
+            commands['sunken'] = True
             print("You won! The enemy ship has sunken.")
 
 
-def defend(pirate_ship_state, _, start_index, end_index, damage_received):
-    global is_sunken
-    if 0 <= start_index < len(pirate_ship_state) and 0 <= end_index < len(pirate_ship_state):
+def defend(start_index, end_index, damage_received):
+    if 0 <= start_index < len(pirate_ship) and 0 <= end_index < len(pirate_ship):
         for ship in range(start_index, end_index + 1):
-            pirate_ship_state[ship] -= damage_received
-            if pirate_ship_state[ship] <= 0:
-                is_sunken = True
+            pirate_ship[ship] -= damage_received
+            if pirate_ship[ship] <= 0:
+                commands['sunken'] = True
                 print("You lost! The pirate ship has sunken.")
                 break
 
 
-def repair(state_of_pirate_ship, _, index, health):
-    global max_health_capacity
-    if 0 <= index < len(state_of_pirate_ship):
-        state_of_pirate_ship[index] += health
-        if state_of_pirate_ship[index] > max_health_capacity:
-            state_of_pirate_ship[index] = max_health_capacity
+def repair(index, health):
+    if 0 <= index < len(pirate_ship):
+        pirate_ship[index] += health
+        if pirate_ship[index] > max_health_capacity:
+            pirate_ship[index] = max_health_capacity
 
 
-def status(state_of_pirate_ship, _):
-    global max_health_capacity
-    low_hp_border = max_health_capacity * 0.2
-    count_of_repaired_ships = [ship for ship in state_of_pirate_ship if ship < low_hp_border]
+def status():
+    low_hp_border = commands['max_health'] * 0.2
+    count_of_repaired_ships = [ship for ship in pirate_ship if ship < low_hp_border]
     print(f"{len(count_of_repaired_ships)} sections need repair.")
 
 
@@ -40,17 +36,18 @@ commands = {
     'Fire': fire,
     'Defend': defend,
     'Repair': repair,
-    'Status': status
+    'Status': status,
+    'max_health': max_health_capacity,
+    'sunken': False
 }
-is_sunken = False
 command = input()
 while command != "Retire":
     operation, *data = [item if item.isalpha() else int(item) for item in command.split()]
-    commands[operation](pirate_ship, war_ship, *data)
-    if is_sunken:
+    commands[operation](*data)
+    if commands['sunken']:
         break
     command = input()
-if not is_sunken:
+if not commands['sunken']:
     print(f"Pirate ship status: {sum(pirate_ship)}")
     print(f"Warship status: {sum(war_ship)}")
 
