@@ -52,14 +52,6 @@ for key, value in cars_collection.items():
     print(f"{key} -> Mileage: {value['mileage']} kms, Fuel in the tank: {value['fuel']} lt.")
 
 
-number_of_cars = int(input())
-cars_information = {}
-
-for car in range(number_of_cars):
-    current_car, mileage, fuel = [string if string[0].isalpha() else int(string) for string in input().split("|")]
-    cars_information[current_car] = cars_information.get(current_car, {'mileage': mileage, 'fuel': fuel})
-
-
 # number_of_cars = int(input())
 # cars_information = {}
 #
