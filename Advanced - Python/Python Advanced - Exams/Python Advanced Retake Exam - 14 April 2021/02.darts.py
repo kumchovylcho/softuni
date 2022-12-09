@@ -4,7 +4,7 @@ def check_valid_index(row, col, size_of_matrix):
 
 
 def dart_board(row, col, current_player):
-    if check_valid_index(current_row, current_col, matrix_size):
+    if check_valid_index(row, col, matrix_size):
         result = 0
         for check_row, check_col in (row, -1), (row, 0), (0, col), (-1, col):
             result += matrix[check_row][check_col]
