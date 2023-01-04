@@ -1,10 +1,22 @@
 class Animal:
 
-    def __init__(self, name: str, gender: str, age: int, money_for_care=0):
+    def __init__(self, name: str, gender: str, age: int, money_for_care: int):
         self.name = name
         self.gender = gender
-        self.age = int(age)
-        self.money_for_care = int(money_for_care)
+        self.age = age
+        self.money_for_care = money_for_care
 
     def __repr__(self):
         return f"Name: {self.name}, Age: {self.age}, Gender: {self.gender}"
+
+
+# class Animal:
+#
+#     def __init__(self, name: str, gender: str, age: int, money_for_care=0):
+#         self.name = name
+#         self.gender = gender
+#         self.age = int(age)
+#         self.money_for_care = int(money_for_care)
+#
+#     def __repr__(self):
+#         return f"Name: {self.name}, Age: {self.age}, Gender: {self.gender}"
