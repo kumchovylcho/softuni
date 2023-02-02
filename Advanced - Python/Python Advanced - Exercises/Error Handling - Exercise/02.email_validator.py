@@ -13,6 +13,14 @@ class InvalidDomainError(Exception):
     pass
 
 
+class TooManyAtSymbols(Exception):
+    pass
+
+
+class InvalidName(Exception):
+    pass
+
+
 valid_domains = (".com", ".bg", ".net", ".org")
 MIN_LENGTH = 4
 
@@ -24,12 +32,18 @@ while email:
         """
         raise MustContainAtSymbolError("Email must contain @")
 
-    if len(email.split("@")[0]) < MIN_LENGTH:
+    if email.count("@") > 1:
+        raise TooManyAtSymbols("@ symbol must be only one")
+
+    if len(email.split("@")[0]) <= MIN_LENGTH:
         """
         it is guaranteed that we have @ symbol and if there isn't any letter before the @ symbol,
         then index 0 will be empty
         """
-        raise NameTooShortError("Name must be more than 4 letters")
+        raise NameTooShortError(f"Name must be more than {MIN_LENGTH} letters")
+
+    if findall(r'[\w+\\.]+', email)[0] != email.split("@")[0]:
+        raise InvalidName("Name cannot contain special symbols")
 
     find_domain = findall(r'\.+[a-z]+', email)
     if not find_domain or find_domain[-1] not in valid_domains:
