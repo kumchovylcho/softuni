@@ -16,8 +16,8 @@ def count_characters_and_symbols(collection: list):
                     continue
                 if letter in punctuation:
                     symbol += 1
-                    continue
-                character += 1
+                elif letter.isalpha():
+                    character += 1
 
             res.write(f"Line {line}: {sentence} ({character})({symbol})\n")
 
