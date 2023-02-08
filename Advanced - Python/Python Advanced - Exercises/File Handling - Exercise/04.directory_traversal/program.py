@@ -23,3 +23,5 @@ directory = input()
 
 files_with_extensions = get_file_names_and_extensions(directory)
 write_result_on_file(files_with_extensions)
+
+#  write_result_on_file(get_file_names_and_extensions(directory))
