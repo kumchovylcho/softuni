@@ -37,7 +37,7 @@ class Pizza:
     @max_number_of_toppings.setter
     def max_number_of_toppings(self, value):
         if value <= 0:
-            raise ValueError("The topping's capacity cannot be less or equal to zero")
+            raise ValueError("The maximum number of toppings cannot be less or equal to zero")
         self.__max_number_of_toppings = value
 
     def add_topping(self, topping: Topping):
