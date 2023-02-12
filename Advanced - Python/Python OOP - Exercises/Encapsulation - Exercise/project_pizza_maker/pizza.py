@@ -1,12 +1,13 @@
 from project.topping import Topping
+from project.dough import Dough
 
 
 class Pizza:
 
-    def __init__(self, name: str, dough, toppings_capacity: int):
+    def __init__(self, name: str, dough: Dough, max_number_of_toppings: int):
         self.name = name
         self.dough = dough
-        self.toppings_capacity = int(toppings_capacity)
+        self.max_number_of_toppings = max_number_of_toppings
         self.toppings = {}
 
     @property
@@ -30,18 +31,17 @@ class Pizza:
         self.__dough = value
 
     @property
-    def toppings_capacity(self):
-        return self.__toppings_capacity
+    def max_number_of_toppings(self):
+        return self.__max_number_of_toppings
 
-    @toppings_capacity.setter
-    def toppings_capacity(self, value):
-        value = int(value)
+    @max_number_of_toppings.setter
+    def max_number_of_toppings(self, value):
         if value <= 0:
             raise ValueError("The topping's capacity cannot be less or equal to zero")
-        self.__toppings_capacity = value
+        self.__max_number_of_toppings = value
 
     def add_topping(self, topping: Topping):
-        if self.toppings_capacity == len(self.toppings):
+        if self.max_number_of_toppings == len(self.toppings):
             raise ValueError("Not enough space for another topping")
         self.toppings[topping.topping_type] = self.toppings.get(topping.topping_type, 0) + topping.weight
 
