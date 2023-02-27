@@ -6,24 +6,26 @@ class Vet:
         self.name = name
         self.animals = []
 
-    def register_animal(self, animal_name: str):
-        if Vet.space:
-            self.animals.append(animal_name)
-            Vet.animals.append(animal_name)
-            Vet.space -= 1
-            return f"{animal_name} registered in the clinic"
-        return "Not enough space"
+    def register_animal(self, animal: str):
+        if len(self.animals) >= self.space:
+            return f"Not enough space"
+
+        self.animals.append(animal)
+        Vet.animals.append(animal)
+
+        return f"{animal} registered in the clinic"
 
     def unregister_animal(self, animal_name: str):
-        if animal_name in self.animals:
-            Vet.space += 1
-            Vet.animals.remove(animal_name)
-            self.animals.remove(animal_name)
-            return f"{animal_name} unregistered successfully"
-        return f"{animal_name} not in the clinic"
+        if animal_name not in self.animals:
+            return f"{animal_name} not in the clinic"
+
+        Vet.animals.remove(animal_name)
+        self.animals.remove(animal_name)
+
+        return f"{animal_name} unregistered successfully"
 
     def info(self):
-        return f"{self.name} has {len(self.animals)} animals. {Vet.space} space left in clinic"
+        return f"{self.name} has {len(self.animals)} animals. {Vet.space - len(Vet.animals)} space left in clinic"
 
 
 peter = Vet("Peter")
@@ -39,6 +41,34 @@ print(peter.unregister_animal("Molly"))
 print(peter.unregister_animal("Tom"))
 print(peter.info())
 print(george.info())
+
+
+# class Vet:
+#     animals = []
+#     space = 5
+#
+#     def __init__(self, name: str):
+#         self.name = name
+#         self.animals = []
+#
+#     def register_animal(self, animal_name: str):
+#         if Vet.space:
+#             self.animals.append(animal_name)
+#             Vet.animals.append(animal_name)
+#             Vet.space -= 1
+#             return f"{animal_name} registered in the clinic"
+#         return "Not enough space"
+#
+#     def unregister_animal(self, animal_name: str):
+#         if animal_name in self.animals:
+#             Vet.space += 1
+#             Vet.animals.remove(animal_name)
+#             self.animals.remove(animal_name)
+#             return f"{animal_name} unregistered successfully"
+#         return f"{animal_name} not in the clinic"
+#
+#     def info(self):
+#         return f"{self.name} has {len(self.animals)} animals. {Vet.space} space left in clinic"
 
 
 # class Vet:
