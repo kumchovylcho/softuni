@@ -1,48 +1,78 @@
-register_information = dict()
+def register(username: str, car_plate: str):
+    if username in parking:
+        return f"ERROR: already registered with plate number {car_plate}"
+
+    parking[username] = car_plate
+    return f"{username} registered {car_plate} successfully"
 
 
-def register_check(name, license_plate):
-    if name in register_information:
-        print(f"ERROR: already registered with plate number {license_plate}")
+def unregister(username: str):
+    if username not in parking:
+        return f"ERROR: user {username} not found"
 
-    elif name not in register_information:
-        register_information[name] = license_plate
-        print(f"{name} registered {license_plate} successfully")
-
-
-def unregister(name):
-    if name not in register_information:
-        print(f"ERROR: user {name} not found")
-
-    elif name in register_information:
-        del register_information[name]
-        print(f"{name} unregistered successfully")
+    parking.pop(username)
+    return f"{username} unregistered successfully"
 
 
-def registered_users():
-    for user in register_information:
-        print(f"{user} => {register_information[user]}")
+parking = {}
+
+commands = {
+    'register': register,
+    'unregister': unregister,
+    }
+
+number_of_operations = int(input())
+for _ in range(number_of_operations):
+    command, name, *license_plate = input().split()
+
+    print(commands[command](name, *license_plate))
+
+for name, plate in parking.items():
+    print(f"{name} => {plate}")
 
 
-def registration():
-    number_of_commands = int(input())
-    for _ in range(number_of_commands):
-        register = input().split()
-
-        registration = register[0]
-        username = register[1]
-
-        if registration == "register":
-            license_plate = register[2]
-            register_check(username, license_plate)
-
-        elif registration == "unregister":
-            unregister(username)
-
-    registered_users()
-
-
-registration()
+# def register_check(name, license_plate):
+#     if name in register_information:
+#         print(f"ERROR: already registered with plate number {license_plate}")
+#
+#     elif name not in register_information:
+#         register_information[name] = license_plate
+#         print(f"{name} registered {license_plate} successfully")
+#
+#
+# def unregister(name):
+#     if name not in register_information:
+#         print(f"ERROR: user {name} not found")
+#
+#     elif name in register_information:
+#         del register_information[name]
+#         print(f"{name} unregistered successfully")
+#
+#
+# def registered_users():
+#     for user in register_information:
+#         print(f"{user} => {register_information[user]}")
+#
+#
+# def registration():
+#     number_of_commands = int(input())
+#     for _ in range(number_of_commands):
+#         register = input().split()
+#
+#         registration = register[0]
+#         username = register[1]
+#
+#         if registration == "register":
+#             license_plate = register[2]
+#             register_check(username, license_plate)
+#
+#         elif registration == "unregister":
+#             unregister(username)
+#
+#     registered_users()
+#
+# register_information = dict()
+# registration()
 
 
 # parking_lot = {}
