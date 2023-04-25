@@ -1,6 +1,9 @@
-# softuni
+# Softuni
 Here you can find my softuni exercise solutions
 
 
-Python OOP Retake Exam - 18 April 2023 videos with explanations
-[Click here](https://www.youtube.com/playlist?list=PLP4_QTN3JBG2-8TfKQ6-WZxVkgE-VPGim)
+Видео решения:
+
+| Python OOP                                                                  |
+|---------------------------------------------------------------------------------------|
+| [Python OOP Retake Exam - 18 April 2023](https://www.youtube.com/playlist?list=PLP4_QTN3JBG2-8TfKQ6-WZxVkgE-VPGim) |
