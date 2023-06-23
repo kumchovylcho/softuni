@@ -1,105 +1,204 @@
-def find_santa_and_count_items_on_map():
-    s_row, s_col = 0, 0
-    for row in range(rows):
-        for col in range(len(matrix[row])):
-            if matrix[row][col] == "Y":
-                matrix[row][col] = "x"
-                s_row, s_col = row, col
+def move_in_direction(row, col, direction, steps):
+    for _ in range(steps):
+        row = row + movement[direction][0]
+        col = col + movement[direction][1]
 
-            elif matrix[row][col] not in "x.":
-                items_on_map[matrix[row][col]] += 1
+        row, col = check_for_traverse(row, col)
 
-    return s_row, s_col
+        food = check_for_food(row, col)
+        matrix[row][col] = "x"
+        if food:
+            collected_items[food]["count"] -= 1
+            collected_items[food]["collected"] += 1
+            if all(info["count"] == 0 for info in collected_items.values()):
+                break
+
+    return row, col
+
+
+def check_for_food(row, col):
+    symbol = matrix[row][col]
+    if symbol in "DGC":
+        return symbol
+
+    return False
 
 
 def check_for_traverse(row, col):
-    if row >= rows:
+    if row == rows:
         row = 0
-    elif row < 0:
+
+    elif row == -1:
         row = rows - 1
 
-    elif col >= cols:
+    elif col == cols:
         col = 0
-    elif col < 0:
+
+    elif col == -1:
         col = cols - 1
 
     return row, col
 
 
-def try_to_collect_item(row, col):
-    item = matrix[row][col]
-    if matrix[row][col] in collected_items.keys():
-        collected_items[item] += 1
+rows, cols = [int(x) for x in input().split(", ")]
 
-        items_on_map[item] -= 1
-
-
-def move(s_row: int, s_col: int, travel_steps: int, where_to: str):
-    for _ in range(travel_steps):
-        s_row, s_col = directions[where_to][0] + s_row, directions[where_to][1] + s_col
-
-        s_row, s_col = check_for_traverse(s_row, s_col)
-
-        try_to_collect_item(s_row, s_col)
-
-        matrix[s_row][s_col] = "x"
-
-        if not sum(items_on_map.values()):
-            break
-
-    return s_row, s_col
-
-
-rows, cols = map(int, input().split(", "))
-matrix = [[x for x in input().split()] for _ in range(rows)]
-
-directions = {
-    "up": (-1, 0),
-    "down": (1, 0),
-    "left": (0, -1),
-    "right": (0, 1)
-}
+m_row, m_col = 0, 0
 
 collected_items = {
-    "D": 0,
-    "G": 0,
-    "C": 0,
+    "D": {"count": 0, "collected": 0, "item_name": "Christmas decorations"},
+    "G": {"count": 0, "collected": 0, "item_name": "Gifts"},
+    "C": {"count": 0, "collected": 0, "item_name": "Cookies"},
 }
 
-items_on_map = {
-    "D": 0,
-    "G": 0,
-    "C": 0,
+matrix = []
+for row in range(rows):
+    current_row = input().split()
+
+    if "Y" in current_row:
+        m_row, m_col = row, current_row.index("Y")
+        current_row[m_col] = "x"
+
+    for symbol in current_row:
+        if symbol in "DGC":
+            collected_items[symbol]["count"] += 1
+
+    matrix.append(current_row)
+
+movement = {
+    "right": (0, 1),
+    "left": (0, -1),
+    "up": (-1, 0),
+    "down": (1, 0),
 }
-
-santa_row, santa_col = find_santa_and_count_items_on_map()
-
-collected_all_items = False
 
 command = input()
 while command != "End":
-    direction, steps = [int(x) if x.isdigit() else x for x in command.split("-")]
+    command, steps = [x if x.isalpha() else int(x) for x in command.split("-")]
 
-    santa_row, santa_col = move(santa_row, santa_col, steps, direction)
+    m_row, m_col = move_in_direction(m_row, m_col, command, steps)
 
-    if not sum(items_on_map.values()):
-        collected_all_items = True
+    if all(info["count"] == 0 for info in collected_items.values()):
         break
 
     command = input()
 
+matrix[m_row][m_col] = "Y"
 
-if collected_all_items:
+if all(info["count"] == 0 for info in collected_items.values()):
     print("Merry Christmas!")
 
-matrix[santa_row][santa_col] = "Y"
-
 print("You've collected:")
-print(f"- {collected_items['D']} Christmas decorations")
-print(f"- {collected_items['G']} Gifts")
-print(f"- {collected_items['C']} Cookies")
+for info in collected_items.values():
+    print(f"- {info['collected']} {info['item_name']}")
 
-[print(*matrix[row]) for row in range(rows)]
+for row in range(rows):
+    print(" ".join(matrix[row]))
+
+
+
+
+# def find_santa_and_count_items_on_map():
+#     s_row, s_col = 0, 0
+#     for row in range(rows):
+#         for col in range(len(matrix[row])):
+#             if matrix[row][col] == "Y":
+#                 matrix[row][col] = "x"
+#                 s_row, s_col = row, col
+#
+#             elif matrix[row][col] not in "x.":
+#                 items_on_map[matrix[row][col]] += 1
+#
+#     return s_row, s_col
+#
+#
+# def check_for_traverse(row, col):
+#     if row >= rows:
+#         row = 0
+#     elif row < 0:
+#         row = rows - 1
+#
+#     elif col >= cols:
+#         col = 0
+#     elif col < 0:
+#         col = cols - 1
+#
+#     return row, col
+#
+#
+# def try_to_collect_item(row, col):
+#     item = matrix[row][col]
+#     if matrix[row][col] in collected_items.keys():
+#         collected_items[item] += 1
+#
+#         items_on_map[item] -= 1
+#
+#
+# def move(s_row: int, s_col: int, travel_steps: int, where_to: str):
+#     for _ in range(travel_steps):
+#         s_row, s_col = directions[where_to][0] + s_row, directions[where_to][1] + s_col
+#
+#         s_row, s_col = check_for_traverse(s_row, s_col)
+#
+#         try_to_collect_item(s_row, s_col)
+#
+#         matrix[s_row][s_col] = "x"
+#
+#         if not sum(items_on_map.values()):
+#             break
+#
+#     return s_row, s_col
+#
+#
+# rows, cols = map(int, input().split(", "))
+# matrix = [[x for x in input().split()] for _ in range(rows)]
+#
+# directions = {
+#     "up": (-1, 0),
+#     "down": (1, 0),
+#     "left": (0, -1),
+#     "right": (0, 1)
+# }
+#
+# collected_items = {
+#     "D": 0,
+#     "G": 0,
+#     "C": 0,
+# }
+#
+# items_on_map = {
+#     "D": 0,
+#     "G": 0,
+#     "C": 0,
+# }
+#
+# santa_row, santa_col = find_santa_and_count_items_on_map()
+#
+# collected_all_items = False
+#
+# command = input()
+# while command != "End":
+#     direction, steps = [int(x) if x.isdigit() else x for x in command.split("-")]
+#
+#     santa_row, santa_col = move(santa_row, santa_col, steps, direction)
+#
+#     if not sum(items_on_map.values()):
+#         collected_all_items = True
+#         break
+#
+#     command = input()
+#
+#
+# if collected_all_items:
+#     print("Merry Christmas!")
+#
+# matrix[santa_row][santa_col] = "Y"
+#
+# print("You've collected:")
+# print(f"- {collected_items['D']} Christmas decorations")
+# print(f"- {collected_items['G']} Gifts")
+# print(f"- {collected_items['C']} Cookies")
+#
+# [print(*matrix[row]) for row in range(rows)]
 
 
 # def find_santa(rows):
