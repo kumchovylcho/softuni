@@ -1,36 +1,69 @@
-from string import ascii_lowercase, ascii_uppercase
-
-allowed_letters = ascii_lowercase + ascii_uppercase
-
-secret_letters = {
-    "o": 0,
+secret = {
     "c": 0,
-    "n": 0
+    "o": 0,
+    "n": 0,
 }
+current_word = ""
+final_word = ""
 
-final_string = []
-current_string = []
+letter = input()
+while letter != "End":
 
-symbol = input()
-while symbol != "End":
+    if not letter.isalpha():
+        letter = input()
+        continue
 
-    if symbol in allowed_letters:
-        if symbol in secret_letters and secret_letters[symbol] == 0:
-            secret_letters[symbol] += 1
+    if letter in secret:
+        secret[letter] += 1
 
-        else:
-            current_string.append(symbol)
-        if all(x == 1 for x in secret_letters.values()):
-            final_string.append(''.join(current_string) + " ")
-            current_string = []
+    if secret.get(letter, 0) > 1 or letter not in secret:
+        current_word += letter
 
-            for key in secret_letters:
-                secret_letters[key] = 0
+    if all(x > 0 for x in secret.values()):
+        secret = {symbol: 0 for symbol in secret}
+        final_word += current_word + " "
+        current_word = ""
 
-    symbol = input()
+    letter = input()
 
-print(''.join(final_string))
+print(final_word)
 
+################################################################################################
+
+# from string import ascii_lowercase, ascii_uppercase
+#
+# allowed_letters = ascii_lowercase + ascii_uppercase
+#
+# secret_letters = {
+#     "o": 0,
+#     "c": 0,
+#     "n": 0
+# }
+#
+# final_string = []
+# current_string = []
+#
+# symbol = input()
+# while symbol != "End":
+#
+#     if symbol in allowed_letters:
+#         if symbol in secret_letters and secret_letters[symbol] == 0:
+#             secret_letters[symbol] += 1
+#
+#         else:
+#             current_string.append(symbol)
+#         if all(x == 1 for x in secret_letters.values()):
+#             final_string.append(''.join(current_string) + " ")
+#             current_string = []
+#
+#             for key in secret_letters:
+#                 secret_letters[key] = 0
+#
+#     symbol = input()
+#
+# print(''.join(final_string))
+
+################################################################################################
 
 # from string import ascii_lowercase, ascii_uppercase
 # letter_lowercase = ascii_lowercase
