@@ -34,24 +34,19 @@ def check_diagonals(row1, row2, row3):
     rows = [row1, row2, row3]
 
     left_diag_checker = set()
-    for i in range(3):
-        if rows[i][i] == "0":
-            return 0
-
-        left_diag_checker.add(rows[i][i])
-
     right_diag_checker = set()
-    for i in range(2, -1, -1):
-        if rows[i][i] == "0":
-            return 0
-
-        right_diag_checker.add(rows[i][i])
+    for i in range(3):
+        right_index = (i + 1) * -1
+        left_diag_checker.add(rows[i][i])
+        right_diag_checker.add(rows[i][right_index])
 
 
     for result in left_diag_checker, right_diag_checker:
         winner = set_check_helper(result, 1)
         if winner:
             return winner
+
+    return 0
 
 
 def solver(row1, row2, row3):
