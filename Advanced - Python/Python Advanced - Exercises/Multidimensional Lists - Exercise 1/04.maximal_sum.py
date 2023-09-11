@@ -8,7 +8,7 @@ for _ in range(rows):
 quadrants = {}
 for row in range(rows - 2):
     for col in range(width - 2):
-        
+
         nums = []
         for s_row in range(row, row + 3):
             nums.append(matrix[s_row][col : col + 3])
