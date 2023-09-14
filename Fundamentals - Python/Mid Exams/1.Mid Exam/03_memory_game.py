@@ -1,30 +1,78 @@
+def valid_index(index_one: int, index_two: int):
+    return 0 <= index_one < len(elements) and 0 <= index_two < len(elements)
+
+
 elements = input().split()
-number_of_moves = 1
-integers = input()
-while integers != "end":
-    first_index, second_index = [int(x) for x in integers.split()]
-    if first_index == second_index or \
-            first_index >= len(elements) or first_index < 0 or \
-            second_index >= len(elements) or second_index < 0:
-        middle = len(elements) // 2
-        elements.insert(middle, f"-{number_of_moves}a")
-        elements.insert(middle, f"-{number_of_moves}a")
+
+moves_number = 0
+command = input()
+while command != 'end':
+    first_index , second_index = [int(x) for x in command.split()]
+    moves_number += 1
+
+    if not valid_index(first_index, second_index) or first_index == second_index:
+        middle_of_elements = len(elements) // 2
+
+        elements.insert(middle_of_elements, f"-{moves_number}a")
+        elements.insert(middle_of_elements, f"-{moves_number}a")
         print("Invalid input! Adding additional elements to the board")
-    elif first_index != second_index and elements[first_index] == elements[second_index]:
-        removed_element = elements[first_index]
-        elements.remove(removed_element)
-        elements.remove(removed_element)
-        print(f"Congrats! You have found matching elements - {removed_element}!")
-    elif elements[first_index] != elements[second_index]:
+        command = input()
+        continue
+
+    if elements[first_index] == elements[second_index]:
+        symbol = elements[first_index]
+
+        elements.remove(symbol)
+        elements.remove(symbol)
+        print(f"Congrats! You have found matching elements - {symbol}!")
+
+    else:
         print("Try again!")
+
     if not elements:
-        print(f"You have won in {number_of_moves} turns!")
+        print(f"You have won in {moves_number} turns!")
         break
-    number_of_moves += 1
-    integers = input()
+
+    command = input()
+
 if elements:
-    print("Sorry you lose :(")
-    print(' '.join(elements))
+    print('Sorry you lose :(')
+    print(*elements, sep=' ')
+
+
+################################################################################################
+
+
+# elements = input().split()
+# number_of_moves = 1
+# integers = input()
+# while integers != "end":
+#     first_index, second_index = [int(x) for x in integers.split()]
+#     if first_index == second_index or \
+#             first_index >= len(elements) or first_index < 0 or \
+#             second_index >= len(elements) or second_index < 0:
+#         middle = len(elements) // 2
+#         elements.insert(middle, f"-{number_of_moves}a")
+#         elements.insert(middle, f"-{number_of_moves}a")
+#         print("Invalid input! Adding additional elements to the board")
+#     elif first_index != second_index and elements[first_index] == elements[second_index]:
+#         removed_element = elements[first_index]
+#         elements.remove(removed_element)
+#         elements.remove(removed_element)
+#         print(f"Congrats! You have found matching elements - {removed_element}!")
+#     elif elements[first_index] != elements[second_index]:
+#         print("Try again!")
+#     if not elements:
+#         print(f"You have won in {number_of_moves} turns!")
+#         break
+#     number_of_moves += 1
+#     integers = input()
+# if elements:
+#     print("Sorry you lose :(")
+#     print(' '.join(elements))
+
+
+#################################################################################################
 
 
 # def out_of_bound_check(main_list, index_one, index_two):
