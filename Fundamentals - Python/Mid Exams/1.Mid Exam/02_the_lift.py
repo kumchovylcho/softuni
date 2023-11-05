@@ -1,18 +1,41 @@
-people_waiting = int(input())
-all_lifts = list(map(int, input().split()))
+que_of_people = int(input())
+lift_state = [int(x) for x in input().split()]
 
-for lift in range(len(all_lifts)):
-    people_added = min(4 - all_lifts[lift], people_waiting)
-    people_waiting -= people_added
-    all_lifts[lift] += people_added
+for i, wagon in enumerate(lift_state):
+    people_to_add = 4 - wagon
 
-empty_spots = [x for x in all_lifts if x != 4]
-if not people_waiting and empty_spots:
+    while people_to_add and que_of_people:
+        people_to_add -= 1
+        que_of_people -= 1
+        lift_state[i] += 1
+
+
+has_empty_wagons = len(lift_state) != lift_state.count(4)
+if not que_of_people and has_empty_wagons:
     print("The lift has empty spots!")
-elif people_waiting:
-    print(f"There isn't enough space! {people_waiting} people in a queue!")
-print(f"{' '.join(str(item) for item in all_lifts)}")
+elif que_of_people and not has_empty_wagons:
+    print(f"There isn't enough space! {que_of_people} people in a queue!")
 
+print(*lift_state, sep=" ")
+
+##########################################################################################
+
+# people_waiting = int(input())
+# all_lifts = list(map(int, input().split()))
+#
+# for lift in range(len(all_lifts)):
+#     people_added = min(4 - all_lifts[lift], people_waiting)
+#     people_waiting -= people_added
+#     all_lifts[lift] += people_added
+#
+# empty_spots = [x for x in all_lifts if x != 4]
+# if not people_waiting and empty_spots:
+#     print("The lift has empty spots!")
+# elif people_waiting:
+#     print(f"There isn't enough space! {people_waiting} people in a queue!")
+# print(f"{' '.join(str(item) for item in all_lifts)}")
+
+################################################################################################
 
 # def add_people(all_lifts_list, index, people_remaining):
 #     max_people_per_lift = 4
