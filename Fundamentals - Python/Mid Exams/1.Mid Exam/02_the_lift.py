@@ -1,8 +1,9 @@
 que_of_people = int(input())
 lift_state = [int(x) for x in input().split()]
+max_people_on_wagon = 4
 
 for i, wagon in enumerate(lift_state):
-    people_to_add = 4 - wagon
+    people_to_add = max_people_on_wagon - wagon
 
     while people_to_add and que_of_people:
         people_to_add -= 1
@@ -10,7 +11,7 @@ for i, wagon in enumerate(lift_state):
         lift_state[i] += 1
 
 
-has_empty_wagons = len(lift_state) != lift_state.count(4)
+has_empty_wagons = len(lift_state) != lift_state.count(max_people_on_wagon)
 if not que_of_people and has_empty_wagons:
     print("The lift has empty spots!")
 elif que_of_people and not has_empty_wagons:
