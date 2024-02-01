@@ -43,7 +43,7 @@ movement = {
 
 command = input()
 while command != "Stop":
-    operation, direction, *value = [x for x in command.split(", ")]
+    operation, direction, *value = command.split(", ")
 
     start_row, start_col = start_row + movement[direction][0], start_col + movement[direction][1]
     operations[operation](start_row, start_col, *value)
