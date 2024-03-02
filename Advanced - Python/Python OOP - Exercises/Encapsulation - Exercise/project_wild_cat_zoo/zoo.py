@@ -51,30 +51,27 @@ class Zoo:
         animals = {
             "Lion": [], "Tiger": [], "Cheetah": []
         }
-        for animal in self.animals:
-            animals[type(animal).__name__].append(animal.__repr__())
-        output = [f"You have {len(self.animals)} animals"]
-        for key, value in animals.items():
-            output.append(f"----- {len(value)} {key + 's'}:")
-            if value:
-                for item in value:
-                    output.append(item)
-        return '\n'.join(output)
+
+        return self.get_status(self.animals, animals, "animals")
 
     def workers_status(self):
         workers = {
             "Keeper": [], "Caretaker": [], "Vet": []
         }
-        for worker in self.workers:
-            workers[type(worker).__name__].append(worker.__repr__())
-        output = [f"You have {len(self.workers)} workers"]
-        for key, value in workers.items():
+
+        return self.get_status(self.workers, workers, "workers")
+
+    @staticmethod
+    def get_status(collection: list, options: dict, status_for: str):
+        for obj in collection:
+            options[type(obj).__name__].append(obj.__repr__())
+        output = [f"You have {len(collection)} {status_for}"]
+        for key, value in options.items():
             output.append(f"----- {len(value)} {key + 's'}:")
             if value:
                 for item in value:
                     output.append(item)
         return '\n'.join(output)
-
 
 # class Zoo:
 #
