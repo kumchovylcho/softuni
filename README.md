@@ -13,5 +13,6 @@ Here you can find my softuni exercise solutions
 | <a href="https://www.youtube.com/watch?v=YSc76BZvPZY&list=PLP4_QTN3JBG3sVQLObBiYSB4xXnCwXr7k" target="_blank">Python OOP Regular Exam - 9 December 2023</a> | [Python Advanced Exam - 17 February 2024](https://youtu.be/Qrgkc-nFThc)                                                               |
 | [Python OOP Retake Exam - 19 December 2023](https://youtu.be/jsyRGrfJd_4)                                                                                   |                                                                                                                                       |
 | [Python OOP Regular Exam - 06 April 2024](https://youtu.be/M9EfreWwW2M)                                                                                     |                                                                                                                                       |
+| [Python OOP Retake Exam - 16 April 2024](https://youtu.be/8WZ5a1tKYTw)                                                                                      |                                                                                                                                       |
 
 
