@@ -18,8 +18,7 @@ def boarding_passengers(ship_capacity, *args):
     for program, guests in sorted_by_guests:
         output.append(f"## {program}: {guests} guests")
 
-    has_ship_and_group_diff = lambda _program_guests: sum(_program_guests.values()) == sum(number for number, _ in args)
-    all_passengers_boarded = has_ship_and_group_diff(program_guests)
+    all_passengers_boarded = sum(program_guests.values()) == sum(number for number, _ in args)
     if all_passengers_boarded:
         output.append("All passengers are successfully boarded!")
     elif not ship_capacity and not all_passengers_boarded:
