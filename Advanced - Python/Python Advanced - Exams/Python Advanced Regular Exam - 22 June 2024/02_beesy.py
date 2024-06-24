@@ -49,8 +49,6 @@ def main(move_row, move_col, field):
         "left": (0, -1),
         "right": (0, 1),
     }
-    dynamic_row = move_row
-    dynamic_col = move_col
 
     bee_energy_consumption = 1
     collected_nectar = 0
@@ -64,15 +62,15 @@ def main(move_row, move_col, field):
 
         initial_energy -= bee_energy_consumption
 
-        dynamic_row += movements[command][0]
-        dynamic_col += movements[command][1]
-        dynamic_row, dynamic_col = keep_inside_field(dynamic_row, dynamic_col, field)
+        move_row += movements[command][0]
+        move_col += movements[command][1]
+        move_row, move_col = keep_inside_field(move_row, move_col, field)
 
-        if field[dynamic_row][dynamic_col] == FieldData.HIVE.value:
+        if field[move_row][move_col] == FieldData.HIVE.value:
             has_reached_hive = True
             continue
 
-        collected_nectar += collect_flower(dynamic_row, dynamic_col, field)
+        collected_nectar += collect_flower(move_row, move_col, field)
 
         if not initial_energy and collected_nectar >= goal_nectar and has_restored_energy:
             has_restored_energy = False
@@ -87,7 +85,7 @@ def main(move_row, move_col, field):
     elif not has_reached_hive and not initial_energy:
         print("This is the end! Beesy ran out of energy.")
 
-    field[dynamic_row][dynamic_col] = FieldData.BEE.value
+    field[move_row][move_col] = FieldData.BEE.value
     for row in field:
         print("".join(row))
 
