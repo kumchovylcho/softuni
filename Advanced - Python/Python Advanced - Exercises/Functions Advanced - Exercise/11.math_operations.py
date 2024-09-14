@@ -1,21 +1,57 @@
+import operator
+
+
 def math_operations(*args, **kwargs):
+    operations = {
+        "a": operator.add,
+        "s": operator.sub,
+        "d": operator.truediv,
+        "m": operator.mul
+    }
+
+    kwargs_as_list = list(kwargs)
+    kwargs_length = len(kwargs)
+
     for index in range(len(args)):
-        key = list(kwargs)[index % 4]
+        key = kwargs_as_list[index % kwargs_length]
+        number = args[index]
 
-        if key == "a":
-            kwargs[key] += args[index]
-        elif key == "s":
-            kwargs[key] -= args[index]
-        elif key == "d":
-            if args[index] != 0:
-                kwargs[key] /= args[index]
-        elif key == "m":
-            kwargs[key] *= args[index]
+        if key == "d" and number == 0:
+            continue
 
-    result = []
-    for key, value in sorted(kwargs.items(), key=lambda x: (-x[1], x[0])):
-        result.append(f"{key}: {value:.1f}")
-    return '\n'.join(result)
+        kwargs[key] = operations[key](kwargs[key], number)
+
+    return "\n".join(
+        [
+            f"{key}: {value:.1f}"
+            for key, value in
+            sorted(
+                kwargs.items(),
+                key=lambda item: (-item[1], item[0])
+            )
+        ]
+    )
+
+
+
+# def math_operations(*args, **kwargs):
+#     for index in range(len(args)):
+#         key = list(kwargs)[index % 4]
+#
+#         if key == "a":
+#             kwargs[key] += args[index]
+#         elif key == "s":
+#             kwargs[key] -= args[index]
+#         elif key == "d":
+#             if args[index] != 0:
+#                 kwargs[key] /= args[index]
+#         elif key == "m":
+#             kwargs[key] *= args[index]
+#
+#     result = []
+#     for key, value in sorted(kwargs.items(), key=lambda x: (-x[1], x[0])):
+#         result.append(f"{key}: {value:.1f}")
+#     return '\n'.join(result)
 
 
 # def math_operations(*args, **kwargs):
