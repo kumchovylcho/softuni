@@ -5,12 +5,8 @@ def draw_cards(*args, **kwargs):
     }
     cards = {}
 
-    for card_name, card_type in args:
+    for card_name, card_type in list(args) + list(kwargs.items()):
         cards[card_type] = cards.get(card_type, []) + [card_name]
-
-    for card_name, card_type in kwargs.items():
-        cards[card_type] = cards.get(card_type, []) + [card_name]
-
 
     output = []
     for name, collection in cards.items():
