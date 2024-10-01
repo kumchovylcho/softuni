@@ -18,13 +18,23 @@ def knight_interactions(row: int,
     return interactions
 
 
-def find_knights(field: list[list[str]], knight_symbol: str) -> dict[(int, int), int]:
-    knights_positions = {}
-    for row in range(len(field)):
-        for col in range(len(field[row])):
-            if field[row][col] == knight_symbol:
-                knights_positions[(row, col)] = 0
-    return knights_positions
+def create_field_and_find_knights(field_size: int,
+                                  knight_symbol: str
+                                  ) -> tuple[
+                                            list[list[str]],
+                                            dict[(int, int), int]
+                                        ]:
+    knight_positions = {}
+    field = []
+    for row in range(field_size):
+        current_row = list(input())
+        for col in range(len(current_row)):
+            if current_row[col] == knight_symbol:
+                knight_positions[(row, col)] = 0
+
+        field.append(current_row)
+
+    return field, knight_positions
 
 
 def check_valid_index(row: int, col: int, field: list[list[str]]) -> bool:
@@ -41,9 +51,7 @@ def get_knight_with_most_interactions(current_knights: dict[tuple[int, int], int
             return horse_r, horse_c
 
 
-def main(field: list[list[str]], movements: tuple) -> int:
-    knights = find_knights(field, KNIGHT_SYMBOL)
-
+def main(knights: dict[tuple[int, int], int], field: list[list[str]], movements: tuple) -> int:
     deleted_knights = 0
     has_interactions = True
     while has_interactions:
@@ -60,7 +68,7 @@ def main(field: list[list[str]], movements: tuple) -> int:
         deleted_knights += 1
         remove_row, remove_col = get_knight_with_most_interactions(knights)
         knights.pop((remove_row, remove_col))
-        matrix[remove_row][remove_col] = EMPTY_POSITION
+        field[remove_row][remove_col] = EMPTY_POSITION
 
         # resetting the interactions
         knights = {(row, col): 0 for row, col in knights}
@@ -81,9 +89,9 @@ directions = (
 KNIGHT_SYMBOL = "K"
 EMPTY_POSITION = "0"
 matrix_size = int(input())
-matrix = [[x for x in input()] for _ in range(matrix_size)]
+matrix, knights = create_field_and_find_knights(matrix_size, KNIGHT_SYMBOL)
 
-removed_knights = main(matrix, directions)
+removed_knights = main(knights, matrix, directions)
 print(removed_knights)
 
 
