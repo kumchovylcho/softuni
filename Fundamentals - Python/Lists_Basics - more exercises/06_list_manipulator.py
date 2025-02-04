@@ -1,98 +1,168 @@
-def valid_index(sequence: list, index: int):
-    return 0 <= index < len(sequence)
+def get_even_or_odd_elements(sequence: list[int], even_odd: str) -> list[int]:
+    remainder = 0
+    if even_odd == "odd":
+        remainder = 1
+
+    return [x for x in sequence if x % 2 == remainder]
 
 
-def invalid_count(sequence: list, count: int):
-    return count > len(sequence)
-
-
-def get_even_or_odd_elements(sequence: list, type: str):
-    if type == "odd":
-        return [x for x in sequence if x % 2 == 1]
-
-    return [x for x in sequence if x % 2 == 0]
-
-
-def exchange(sequence: list, index: int):
-    if not valid_index(sequence, index):
+def exchange(sequence: list[int], index: int) -> list[int]:
+    if not 0 <= index < len(sequence):
         print("Invalid index")
         return sequence
 
     return sequence[index + 1:] + sequence[:index + 1]
 
 
-def max_index(sequence: list, even_odd: str):
-    max_num = get_even_or_odd_elements(sequence, even_odd)
+def get_index(sequence: list[int], even_odd: str, get_max=True) -> list[int]:
+    filtered_by_type = get_even_or_odd_elements(sequence, even_odd)
 
-    if max_num:
-        number = max(max_num)
-        print(len(sequence) - sequence[::-1].index(number) - 1)
-
-    else:
+    if not filtered_by_type:
         print("No matches")
+        return sequence
 
-    return sequence
-
-def min_index(sequence: list, even_odd: str):
-    min_num = get_even_or_odd_elements(sequence, even_odd)
-
-    if min_num:
-        number = min(min_num)
-        print(len(sequence) - sequence[::-1].index(number) - 1)
-
-    else:
-        print("No matches")
+    number = max(filtered_by_type) if get_max else min(filtered_by_type)
+    # get the rightmost index
+    for i in range(len(sequence) - 1, -1, -1):
+        if sequence[i] == number:
+            print(i)
+            break
 
     return sequence
 
 
-def first_count(sequence: list, count: int, even_odd: str):
-    if invalid_count(sequence, count):
+def get_count(sequence: list[int], count: int, even_odd: str, first=True) -> list[int]:
+    if count > len(sequence):
         print("Invalid count")
         return sequence
 
-    print(get_even_or_odd_elements(sequence, even_odd)[:count])
+    get_slice = slice(0, count) if first else slice(-count, None)
+    print(get_even_or_odd_elements(sequence, even_odd)[get_slice])
 
     return sequence
 
 
-def last_count(sequence: list, count: int, even_odd: str):
-    if invalid_count(sequence, count):
-        print("Invalid count")
-        return sequence
-
-    print(get_even_or_odd_elements(sequence, even_odd)[-count:])
-
-    return sequence
-
-
-def main(sequence: list, commands: dict):
+def main(sequence: list[int]) -> list[int]:
     command = input()
     while command != "end":
         operation, *info = [x if x.isalpha() else int(x) for x in command.split()]
 
-        sequence = commands[operation](sequence, *info)
+        if operation == "exchange":
+            sequence = exchange(sequence, *info)
+        elif operation == "first" or operation == "last":
+            sequence = get_count(sequence, *info, first=operation == "first")
+        elif operation == "max" or operation == "min":
+            sequence = get_index(sequence, *info, get_max=operation == "max")
 
         command = input()
 
     return sequence
 
 
-
 numbers = [int(x) for x in input().split()]
-
-operations = {
-    "exchange": exchange,
-    "max": max_index,
-    "min": min_index,
-    "first": first_count,
-    "last": last_count,
-}
+print(main(numbers))
 
 
-print(main(numbers,
-           operations
-           ))
+
+########################################################################
+
+
+
+# def valid_index(sequence: list, index: int):
+#     return 0 <= index < len(sequence)
+#
+#
+# def invalid_count(sequence: list, count: int):
+#     return count > len(sequence)
+#
+#
+# def get_even_or_odd_elements(sequence: list, type: str):
+#     if type == "odd":
+#         return [x for x in sequence if x % 2 == 1]
+#
+#     return [x for x in sequence if x % 2 == 0]
+#
+#
+# def exchange(sequence: list, index: int):
+#     if not valid_index(sequence, index):
+#         print("Invalid index")
+#         return sequence
+#
+#     return sequence[index + 1:] + sequence[:index + 1]
+#
+#
+# def max_index(sequence: list, even_odd: str):
+#     max_num = get_even_or_odd_elements(sequence, even_odd)
+#
+#     if max_num:
+#         number = max(max_num)
+#         print(len(sequence) - sequence[::-1].index(number) - 1)
+#
+#     else:
+#         print("No matches")
+#
+#     return sequence
+#
+# def min_index(sequence: list, even_odd: str):
+#     min_num = get_even_or_odd_elements(sequence, even_odd)
+#
+#     if min_num:
+#         number = min(min_num)
+#         print(len(sequence) - sequence[::-1].index(number) - 1)
+#
+#     else:
+#         print("No matches")
+#
+#     return sequence
+#
+#
+# def first_count(sequence: list, count: int, even_odd: str):
+#     if invalid_count(sequence, count):
+#         print("Invalid count")
+#         return sequence
+#
+#     print(get_even_or_odd_elements(sequence, even_odd)[:count])
+#
+#     return sequence
+#
+#
+# def last_count(sequence: list, count: int, even_odd: str):
+#     if invalid_count(sequence, count):
+#         print("Invalid count")
+#         return sequence
+#
+#     print(get_even_or_odd_elements(sequence, even_odd)[-count:])
+#
+#     return sequence
+#
+#
+# def main(sequence: list, commands: dict):
+#     command = input()
+#     while command != "end":
+#         operation, *info = [x if x.isalpha() else int(x) for x in command.split()]
+#
+#         sequence = commands[operation](sequence, *info)
+#
+#         command = input()
+#
+#     return sequence
+#
+#
+#
+# numbers = [int(x) for x in input().split()]
+#
+# operations = {
+#     "exchange": exchange,
+#     "max": max_index,
+#     "min": min_index,
+#     "first": first_count,
+#     "last": last_count,
+# }
+#
+#
+# print(main(numbers,
+#            operations
+#            ))
 
 
 
